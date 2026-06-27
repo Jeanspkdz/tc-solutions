@@ -17,11 +17,32 @@
 */
 
 /* _____________ Your Code Here _____________ */
+// THIS doesn't pass all the test cases.
+// type Trunc<V extends number | string, RawV = V extends string ? V : `${V}`> =
+//   RawV extends `${infer FC}${infer Rest}` 
+//   ? FC extends '.' 
+//     ? ''
+//     : `${FC}${Trunc<Rest>}`
+//   : ''
 
-type Trunc = any
-type NumToStr<T extends number> = T extends `${infer V extends number}` ? V : never
+type Trunc<
+  V extends number | string, 
+  Acc extends string = ''  ,
+  RawV = V extends string ? V : `${V}`
+> =
+  RawV extends `${infer FC}${infer Rest}` 
+  ? FC extends '.' 
+    ? Acc extends '' | '-' 
+      ? `${Acc}0`
+      : Acc
+    : Trunc<Rest, `${Acc}${FC}`>
+  : Acc
+
+
+type NumToStr<T extends number> = `${T}`
 type Test = NumToStr<12.345>
-
+type Test2 = NumToStr<-12.345>
+type A = 12.345
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
 
@@ -32,8 +53,8 @@ type cases = [
   Expect<Equal<Trunc<12.345>, '12'>>,
   Expect<Equal<Trunc<-5.1>, '-5'>>,
   Expect<Equal<Trunc<'.3'>, '0'>>,
-  Expect<Equal<Trunc<'1.234'>, '1'>>,
   Expect<Equal<Trunc<'-.3'>, '-0'>>,
+  Expect<Equal<Trunc<'1.234'>, '1'>>,
   Expect<Equal<Trunc<'-10.234'>, '-10'>>,
   Expect<Equal<Trunc<10>, '10'>>,
 ]
