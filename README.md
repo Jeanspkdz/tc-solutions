@@ -19,7 +19,8 @@
   English | <a href='./README.zh-CN.md'>简体中文</a> | <a href='./README.ja.md'>日本語</a> | <a href='./README.ko.md'>한국어</a> | <a href='./README.pt-BR.md'>Português</a>
 </p>
 
-> Personal note: this copy is used to track my own Type Challenges solutions and progress.  
+> Personal solutions repository only. This repo is used to keep my own Type Challenges solutions and progress.
+> It is not the official project repository.
 > Original project: [type-challenges/type-challenges](https://github.com/type-challenges/type-challenges)
 
 ## Intro
